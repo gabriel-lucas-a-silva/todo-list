@@ -31,7 +31,7 @@
 body {
   background-color: var(--gray-600);
   color: var(--white);
-  /* -webkit-font-smoothing: antialiased; */
+  -webkit-font-smoothing: antialiased;
 }
 
 body,

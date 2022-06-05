@@ -1,5 +1,6 @@
 import { Header } from "./components/Header";
 import { InputArea } from "./components/InputArea";
+import { TaskBox } from "./components/TaskBox";
 
 import "./App.module.css";
 
@@ -12,6 +13,7 @@ export function App() {
 
       <main>
         <InputArea />
+        <TaskBox />
       </main>
     </div>
   );
