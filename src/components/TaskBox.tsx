@@ -1,3 +1,5 @@
+import { Task } from "./Task";
+
 import styles from "./TaskBox.module.css";
 
 import clipboard from "../assets/clipboard.svg";
@@ -25,6 +27,9 @@ export function TaskBox() {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </div>
         </div>
+        {/* <Task />
+        <Task />
+        <Task /> */}
       </main>
     </div>
   );
