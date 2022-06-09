@@ -1,12 +1,24 @@
 import { Bluetooth, Check, Trash } from "phosphor-react";
 import { useState } from "react";
+
 import styles from "./Task.module.css";
 
-export function Task() {
+import { v4 as uuid } from "uuid";
+
+export interface Task {
+  description: string;
+  onDeleteTask: () => void;
+}
+
+export function Task({ description, onDeleteTask }: Task) {
   const [checkboxWasClicked, setCheckboxWasClicked] = useState(false);
 
   function handleCheckboxTapping() {
     setCheckboxWasClicked(!checkboxWasClicked);
+  }
+
+  function handleDeleteTask() {
+    onDeleteTask(description);
   }
 
   return (
@@ -26,14 +38,11 @@ export function Task() {
               checkboxWasClicked ? styles.pTaskCompleted : styles.taskName
             }
           >
-            Integer urna interdum massa libero auctor neque turpis turpis
-            semper. Duis vel sed fames integer. Integer urna interdum massa
-            {/* libero auctor neque turpis turpis semper. Duis vel sed fames
-            integer. */}
+            {description}
           </p>
         </div>
 
-        <button>
+        <button onClick={handleDeleteTask}>
           <Trash size={22} />
         </button>
       </div>

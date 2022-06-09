@@ -12,7 +12,6 @@ export function App() {
       <Header />
 
       <main>
-        <InputArea />
         <TaskBox />
       </main>
     </div>
