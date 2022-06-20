@@ -28,6 +28,7 @@
   border-radius: 999px;
   padding: 0.575rem;
   transition: background 0.1s;
+  height: fit-content;
 }
 
 .checkbox:hover,
@@ -43,6 +44,7 @@
   border-radius: 999px;
   padding: 0.2rem;
   transition: background 0.1s;
+  height: fit-content;
 }
 
 .taskName {
