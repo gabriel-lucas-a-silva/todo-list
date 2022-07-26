@@ -11,14 +11,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 
 .task > div {
   display: flex;
   flex-direction: row;
   gap: 0.75rem;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .checkbox {
