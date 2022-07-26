@@ -1,24 +1,39 @@
-import { Bluetooth, Check, Trash } from "phosphor-react";
+import { Check, Trash } from "phosphor-react";
 import { useState } from "react";
 
 import styles from "./Task.module.css";
 
-import { v4 as uuid } from "uuid";
-
 export interface Task {
+  id: string;
   description: string;
-  onDeleteTask: () => void;
+  done: boolean;
+  onDeleteTask: (id: string) => void;
+  onChangeTaskStatus: (task: Task) => void;
 }
 
-export function Task({ description, onDeleteTask }: Task) {
+export function Task({ id, description, done, ...rest }: Task) {
   const [checkboxWasClicked, setCheckboxWasClicked] = useState(false);
 
   function handleCheckboxTapping() {
     setCheckboxWasClicked(!checkboxWasClicked);
+    done = !checkboxWasClicked;
+
+    handleChangeTaskStatus();
   }
 
   function handleDeleteTask() {
-    onDeleteTask(description);
+    rest.onDeleteTask(id);
+  }
+
+  function handleChangeTaskStatus() {
+    const task: Task = {
+      id,
+      description,
+      done,
+      ...rest,
+    };
+
+    rest.onChangeTaskStatus(task);
   }
 
   return (

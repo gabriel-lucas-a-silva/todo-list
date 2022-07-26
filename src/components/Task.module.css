@@ -1,5 +1,4 @@
 .container {
-  min-height: 4.5rem;
   border: 1px solid var(--gray-400);
   background: var(--gray-500);
   padding: 1rem;
@@ -12,12 +11,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  white-space: nowrap;
 }
 
 .task > div {
   display: flex;
   flex-direction: row;
   gap: 0.75rem;
+  overflow: hidden;
 }
 
 .checkbox {
@@ -51,6 +52,10 @@
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.4;
+
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pTaskCompleted {

@@ -1,5 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PlusCircle } from "phosphor-react";
+
+import { v4 as uuid } from "uuid";
+
 import { Task } from "./Task";
 
 import styles from "./TaskBox.module.css";
@@ -8,8 +11,9 @@ import clipboard from "../assets/clipboard.svg";
 
 export function TaskBox() {
   const [createdTasksCount, setCreatedTasksCount] = useState(0);
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [completedTasksCount, setCompletedTasksCount] = useState(0);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskDescription, setTaskDescription] = useState("");
 
   function updateCreatedTasksCount(taskIsBeingDeleted: boolean) {
     if (taskIsBeingDeleted) {
@@ -27,33 +31,60 @@ export function TaskBox() {
 
   function handleCreateNewTask(event: FormEvent) {
     event?.preventDefault();
-    setTasks([...tasks, newTask]);
-    setNewTask("");
+
+    if (taskDescription === "") return;
+
+    const task = {
+      id: uuid(),
+      description: taskDescription,
+      done: false,
+      onDeleteTask(id: string) {},
+      onChangeTaskStatus(task: Task) {},
+    };
+
+    setTasks([...tasks, task]);
+    setTaskDescription("");
 
     updateCreatedTasksCount(false);
   }
 
   function handleTappingNewTaskName(event: ChangeEvent<HTMLInputElement>) {
-    setNewTask(event.target.value);
+    setTaskDescription(event.target.value);
   }
 
-  function handleDeleteTask(task) {
+  function handleDeleteTask(id: string) {
     const updatedTasksAfterDeleting = tasks.filter((elem) => {
-      return elem !== task;
+      return elem.id !== id;
     });
 
     setTasks(updatedTasksAfterDeleting);
     updateCreatedTasksCount(true);
   }
 
+  function handleTaskStatus(task: Task) {
+    if (task.done) {
+      setCompletedTasksCount((state) => {
+        return state + 1;
+      });
+
+      return;
+    }
+
+    setCompletedTasksCount((state) => {
+      return state - 1;
+    });
+  }
+
   return (
     <div className={styles.taskBox}>
       <form onSubmit={handleCreateNewTask} className={styles.form}>
         <input
+          id="createInput"
           type="text"
           placeholder="Adicione uma nova tarefa"
-          required
           onChange={handleTappingNewTaskName}
+          value={taskDescription}
+          required
         />
         <button type="submit">
           Criar
@@ -70,7 +101,7 @@ export function TaskBox() {
 
           <div className={styles.pTask}>
             <p className={styles.pCompleted}>Concluídas</p>
-            <p className={styles.ptaskCount}>0</p>
+            <p className={styles.ptaskCount}>{completedTasksCount}</p>
           </div>
         </header>
 
@@ -79,9 +110,12 @@ export function TaskBox() {
             {tasks.map((task) => {
               return (
                 <Task
-                  key={task}
-                  description={task}
+                  key={task.id}
+                  id={task.id}
+                  description={task.description}
+                  done={task.done}
                   onDeleteTask={handleDeleteTask}
+                  onChangeTaskStatus={handleTaskStatus}
                 />
               );
             })}
