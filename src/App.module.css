@@ -4,16 +4,10 @@ div > main {
 
 @media (max-width: 525px) {
   html {
-    font-size: 83%;
+    font-size: 87%;
   }
 
   div > main {
     padding: 0 10%;
-  }
-}
-
-@media (min-width: 525px) {
-  div > main {
-    padding: 0 25%;
   }
 }
