@@ -78,6 +78,7 @@
   align-items: center;
   gap: 16px;
 
+  text-align: center;
   border-top: 1px solid var(--gray-400);
   border-radius: 8px;
   padding-top: 4rem;

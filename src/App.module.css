@@ -1,3 +1,23 @@
 div > main {
   padding: 0 25%;
 }
+
+@media (max-width: 525px) {
+  html {
+    font-size: 85%;
+  }
+
+  div > main {
+    padding: 0 12%;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+
+  div > main {
+    padding: 0 25%;
+  }
+}

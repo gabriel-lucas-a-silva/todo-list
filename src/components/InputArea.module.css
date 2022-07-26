@@ -18,7 +18,7 @@
 
 .form > button {
   background: var(--blue-dark);
-  width: 5.75rem;
+  min-width: 5.75rem;
   border: 0;
   border-radius: 8px;
   color: var(--gray-100);
