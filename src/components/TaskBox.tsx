@@ -59,6 +59,9 @@ export function TaskBox() {
 
     setTasks(updatedTasksAfterDeleting);
     updateCreatedTasksCount(true);
+    setCompletedTasksCount((state) => {
+      return state - 1;
+    });
   }
 
   function handleTaskStatus(task: Task) {
