@@ -15,6 +15,8 @@ export function TaskBox() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskDescription, setTaskDescription] = useState("");
 
+  console.log(completedTasksCount);
+
   function updateCreatedTasksCount(taskIsBeingDeleted: boolean) {
     if (taskIsBeingDeleted) {
       setCreatedTasksCount((state) => {
@@ -57,11 +59,13 @@ export function TaskBox() {
       return elem.id !== id;
     });
 
+    const task = tasks.filter((elem) => {
+      return elem.id === id;
+    });
+
     setTasks(updatedTasksAfterDeleting);
     updateCreatedTasksCount(true);
-    setCompletedTasksCount((state) => {
-      return state - 1;
-    });
+    handleTaskStatus(task);
   }
 
   function handleTaskStatus(task: Task) {
@@ -70,6 +74,10 @@ export function TaskBox() {
         return state + 1;
       });
 
+      return;
+    }
+
+    if (completedTasksCount === 0) {
       return;
     }
 
@@ -104,7 +112,11 @@ export function TaskBox() {
 
           <div className={styles.pTask}>
             <p className={styles.pCompleted}>Concluídas</p>
-            <p className={styles.ptaskCount}>{completedTasksCount}</p>
+            <p className={styles.ptaskCount}>
+              {completedTasksCount === 0
+                ? 0
+                : completedTasksCount + " de " + tasks.length}
+            </p>
           </div>
         </header>
 

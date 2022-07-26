@@ -2,13 +2,13 @@ div > main {
   padding: 0 25%;
 }
 
-@media (max-width: 525px) {
+@media (max-width: 568px) {
   html {
-    font-size: 85%;
+    font-size: 83%;
   }
 
   div > main {
-    padding: 0 12%;
+    padding: 0 10%;
   }
 }
 
