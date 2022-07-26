@@ -15,8 +15,6 @@ export function TaskBox() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskDescription, setTaskDescription] = useState("");
 
-  console.log(completedTasksCount);
-
   function updateCreatedTasksCount(taskIsBeingDeleted: boolean) {
     if (taskIsBeingDeleted) {
       setCreatedTasksCount((state) => {
@@ -55,35 +53,53 @@ export function TaskBox() {
   }
 
   function handleDeleteTask(id: string) {
-    const updatedTasksAfterDeleting = tasks.filter((elem) => {
-      return elem.id !== id;
-    });
+    let updatedTasksAfterDeleting = [];
+    let task: Task = {
+      id: "",
+      description: "",
+      done: false,
+      onChangeTaskStatus(task: Task) {},
+      onDeleteTask(id: string) {},
+    };
 
-    const task = tasks.filter((elem) => {
-      return elem.id === id;
-    });
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        task = tasks[i];
+      } else {
+        updatedTasksAfterDeleting.push(tasks[i]);
+      }
+    }
+
+    if (task.done) {
+      setCompletedTasksCount((state) => {
+        return state - 1;
+      });
+    }
 
     setTasks(updatedTasksAfterDeleting);
     updateCreatedTasksCount(true);
-    handleTaskStatus(task);
   }
 
-  function handleTaskStatus(task: Task) {
+  function handleChangeStatus(task: Task) {
+    const tasksWithUpdatedStatus = tasks.map((elem) => {
+      if (elem.id === task.id) {
+        elem.done = task.done;
+      }
+
+      return elem;
+    });
+
+    setTasks(tasksWithUpdatedStatus);
+
     if (task.done) {
       setCompletedTasksCount((state) => {
         return state + 1;
       });
-
-      return;
+    } else {
+      setCompletedTasksCount((state) => {
+        return state - 1;
+      });
     }
-
-    if (completedTasksCount === 0) {
-      return;
-    }
-
-    setCompletedTasksCount((state) => {
-      return state - 1;
-    });
   }
 
   return (
@@ -130,7 +146,7 @@ export function TaskBox() {
                   description={task.description}
                   done={task.done}
                   onDeleteTask={handleDeleteTask}
-                  onChangeTaskStatus={handleTaskStatus}
+                  onChangeTaskStatus={handleChangeStatus}
                 />
               );
             })}

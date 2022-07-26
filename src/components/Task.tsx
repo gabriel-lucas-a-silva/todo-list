@@ -33,8 +33,6 @@ export function Task({ id, description, done, ...rest }: Task) {
       ...rest,
     };
 
-    console.log(task);
-
     rest.onChangeTaskStatus(task);
   }
 
