@@ -104,7 +104,11 @@ export function TaskBox() {
 
   return (
     <div className={styles.taskBox}>
-      <form onSubmit={handleCreateNewTask} className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={handleCreateNewTask}
+        autoComplete="off"
+      >
         <input
           id="createInput"
           type="text"
